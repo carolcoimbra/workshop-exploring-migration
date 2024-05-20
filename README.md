@@ -1,6 +1,7 @@
 # Exploring Migration Patterns using Digital Trace Data  
 
 Lilongwe, Malawi, 21 May 2024 from 11:00 to 13:00.  
+HR Corridor @ BICC  
 
 Organized by the [IUSSP Panel in Digital and Computational Demography](https://iussp.org/en/digital-and-computational-demography).
 
