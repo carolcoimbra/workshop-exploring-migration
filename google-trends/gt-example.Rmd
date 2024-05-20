@@ -1,5 +1,5 @@
 ---
-title: "WorkshopGT"
+title: "ExampleCodes_GT"
 output: html_document
 ---
 
@@ -17,7 +17,7 @@ library(data.table)
 
 ## Disclaimer
 
-The gtrendsR package authors are Philippe Massicotte and Dirk Eddelbuettel. These codes are a compilation of my own experience using their package and with the help of the open source community online using the gtrendsR package. 
+The gtrendsR package authors are Philippe Massicotte and Dirk Eddelbuettel. These codes are a compilation of my own experience using their package and the help of the open source community online using the gtrendsR package. 
 
 If and when you receive an error code check https://github.com/PMassicotte/gtrendsR/issues or online discussions. 
 
@@ -27,24 +27,29 @@ Selected parameters
 
 Keyword: asylum
 Location worldwide (default)
-Time range: between 2024-01-01 and 2024-03-31 
+Time range: between 2024-01-01 and 2024-05-15 
 
 ```{r}
-gtrends(keyword = "'work visa'", time = "2024-01-01 2024-03-31",
+gtrends(keyword = "asylum", time = "2024-01-01 2024-05-15",
         gprop = "web", hl = "en", low_search_volume = FALSE)
 ```
 
 A look at related queries suggests asylum may be too broad to be used as a migration proxy.
 
+```{r}
+gtrends(keyword = "'temporary protection'", time = "2024-01-01 2024-05-15",
+        gprop = "web", hl = "en", low_search_volume = FALSE)
+```
+
 To save the results for interest over time, following can be used. 
 
 ```{r}
-gtrends(keyword = "'work visa'", time = "2024-01-01 2024-03-31",
+gtrends(keyword = "'temporary protection'", time = "2024-01-01 2024-05-15",
         gprop = "web", hl = "en", low_search_volume = FALSE, onlyInterest = TRUE)
 
 #or
 
-gtrends(keyword = "'work visa'", time = "2024-01-01 2024-03-31",
+gtrends(keyword = "'temporary protection'", time = "2024-01-01 2024-05-15",
         gprop = "web", hl = "en", low_search_volume = FALSE)$interest_over_time
 ```
 
@@ -53,16 +58,14 @@ We can define up tp 5 different keywords/locations. If we have more than 5 keywo
 ```{r}
 data("countries")
 countries
-EUcountries <- c("AT", "BE", "CH", "CZ", "DE", "DK", "FR", "FI", "GR", "HU",
-                 "IS", "IE", "IT", "LV", "LT", "LU", "NL", "NO", "PL", "PT",
-                 "SK", "SI", "ES", "SE", "EE", "LI", "MT", "BG", "HR", "CY",
-                 "RO")
+SelectedCountries <- c("CM", "EG", "ET", "GH", "KE", "MW", "MA", "NG", "ZA", "TN",
+                 "UG", "ZW")
 
 example <- data.table()
 
-for (i in 1:length(EUcountries)) {
-    example2 = rbind(example, (gtrends(keyword = "asylum", geo = EUcountries[i],
-                              time = "2024-01-01 2024-03-31", gprop = "web",
+for (i in 1:length(SelectedCountries)) {
+    example2 = rbind(example, (gtrends(keyword = "asylum", geo = SelectedCountries[i],
+                              time = "2024-01-01 2024-05-15", gprop = "web",
                               hl = "en", low_search_volume = TRUE))$interest_over_time)
 }
 
@@ -119,7 +122,7 @@ example <- example %>% mutate(adjustedhits = rescale(estimatedhits))
 
 ```{r}
 keys = c("migration", "residence permit", "asylum")
-time = "2024-01-01 2024-03-31"
+time = "2024-01-01 2024-05-15"
 
 trendsoutput = list()
 
@@ -132,16 +135,16 @@ trendsoutput = gtrends(keyword=i, gprop ="web", geo="US", time = time, onlyInter
 trends <- do.call("rbind", results)
 ```
 
-## Keyword as topic: Columbus vs. Columbus
+## Keyword as topic: Lilongwe vs. Lilongwe (city)
 
 ```{r}
 
 # as keyword
-gtrends(keyword = "columbus", time = "2024-01-01 2024-03-31",
+gtrends(keyword = "Lilongwe", time = "2024-01-01 2024-05-15",
         gprop = "web", hl = "en", low_search_volume = TRUE)
 
-# as topic (uses Freebase ID)
-gtrends(keyword = "/m/01smm", time = "2024-01-01 2024-03-31",
+# as topic (uses Freebase ID) check: wikidata.org
+gtrends(keyword = "/m/0fq7l", time = "2024-01-01 2024-05-15",
         gprop = "web", hl = "en", low_search_volume = TRUE)
 
 
