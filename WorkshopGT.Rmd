@@ -1,0 +1,151 @@
+---
+title: "WorkshopGT"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+devtools::install_github("PMassicotte/gtrendsR")
+install.packages("gtrendsR")
+
+library(tidyverse)
+library(data.table)
+```
+
+## Disclaimer
+
+The gtrendsR package authors are Philippe Massicotte and Dirk Eddelbuettel. These codes are a compilation of my own experience using their package and with the help of the open source community online using the gtrendsR package. 
+
+If and when you receive an error code check https://github.com/PMassicotte/gtrendsR/issues or online discussions. 
+
+## Obtaining daily data
+
+Selected parameters
+
+Keyword: asylum
+Location worldwide (default)
+Time range: between 2024-01-01 and 2024-03-31 
+
+```{r}
+gtrends(keyword = "'work visa'", time = "2024-01-01 2024-03-31",
+        gprop = "web", hl = "en", low_search_volume = FALSE)
+```
+
+A look at related queries suggests asylum may be too broad to be used as a migration proxy.
+
+To save the results for interest over time, following can be used. 
+
+```{r}
+gtrends(keyword = "'work visa'", time = "2024-01-01 2024-03-31",
+        gprop = "web", hl = "en", low_search_volume = FALSE, onlyInterest = TRUE)
+
+#or
+
+gtrends(keyword = "'work visa'", time = "2024-01-01 2024-03-31",
+        gprop = "web", hl = "en", low_search_volume = FALSE)$interest_over_time
+```
+
+We can define up tp 5 different keywords/locations. If we have more than 5 keywords or places to compare, a loop is necessary.
+
+```{r}
+data("countries")
+countries
+EUcountries <- c("AT", "BE", "CH", "CZ", "DE", "DK", "FR", "FI", "GR", "HU",
+                 "IS", "IE", "IT", "LV", "LT", "LU", "NL", "NO", "PL", "PT",
+                 "SK", "SI", "ES", "SE", "EE", "LI", "MT", "BG", "HR", "CY",
+                 "RO")
+
+example <- data.table()
+
+for (i in 1:length(EUcountries)) {
+    example2 = rbind(example, (gtrends(keyword = "asylum", geo = EUcountries[i],
+                              time = "2024-01-01 2024-03-31", gprop = "web",
+                              hl = "en", low_search_volume = TRUE))$interest_over_time)
+}
+
+```
+
+## Time adjustment
+
+```{r}
+library(zoo)
+timesd <- c("2022-01-01 2022-03-31", "2021-10-01 2021-12-31", "2021-07-01 2021-09-30") 
+
+example = data.table()
+for (i in 1:length(timesd)) {
+  example = rbind(example, (gtrends(keyword = "refugee", geo = "US",
+                                      time = timesd[i], gprop = "web", hl = "en",
+                                      low_search_volume = TRUE))$interest_over_time)
+  
+}
+example <- example[order(example$date)]
+
+examplew <- gtrends(keyword = "refugee", geo = "US",
+                     time = "2021-07-01 2022-03-31", gprop = "web", hl = "en",
+                     low_search_volume = TRUE)$interest_over_time
+
+# compare the daily and weekly GTI
+
+ggplot(example, aes(x=as.character(date), y=hits, group=time, color=time)) +
+  geom_path() + guides(color=guide_legend(ncol=1)) +
+  theme(axis.text.x = element_blank(),axis.title.x = element_blank(),
+        panel.grid  = element_blank(),plot.background = element_rect(fill = "gray")) +
+  ylab("GTI") + 
+  geom_path(data = examplew, aes(x=as.character(date), y=hits, group = time), color = "black")
+
+example <- left_join(example, examplew, by = c("date" = "date",
+                                      "keyword" = "keyword",
+                                      "geo" = "geo",
+                                      "gprop" = "gprop",
+                                      "category" = "category")) 
+
+example <- rename(example, dailyhits = hits.x, weeklyhits = hits.y)
+example$scalefactor = example$weeklyhits / example$dailyhits
+
+example <- example[1:270,] # to remove the days for which there would be no adjustment factor
+example$scalefactor <- na.locf(example$scalefactor, fromLast = TRUE)
+
+example$estimatedhits <- example$dailyhits * example$scalefactor
+rescale <- function(x){(x-min(x))/(max(x)-min(x)) * 100}
+example <- example %>% mutate(adjustedhits = rescale(estimatedhits))
+
+
+```
+
+## Alternative if the above codes don't work
+
+```{r}
+keys = c("migration", "residence permit", "asylum")
+time = "2024-01-01 2024-03-31"
+
+trendsoutput = list()
+
+for (i in keys) {
+trendsoutput = gtrends(keyword=i, gprop ="web", geo="US", time = time, onlyInterest = TRUE, low_search_volume = FALSE)
+  Sys.sleep(5)
+  results [[i]] = trendsoutput$interest_over_time
+}
+
+trends <- do.call("rbind", results)
+```
+
+## Keyword as topic: Columbus vs. Columbus
+
+```{r}
+
+# as keyword
+gtrends(keyword = "columbus", time = "2024-01-01 2024-03-31",
+        gprop = "web", hl = "en", low_search_volume = TRUE)
+
+# as topic (uses Freebase ID)
+gtrends(keyword = "/m/01smm", time = "2024-01-01 2024-03-31",
+        gprop = "web", hl = "en", low_search_volume = TRUE)
+
+
+```
+
+
+
