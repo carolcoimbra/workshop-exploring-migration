@@ -1,6 +1,6 @@
 # Exploring Migration Patterns using Digital Trace Data  
 
-## Second edition @ [IPC 2025](https://ipc2025.iussp.org/)
+## Second edition @ [the 30th International Population Conference - IPC 2025](https://ipc2025.iussp.org/)
 July, 12th 2025 from 13:00 to 16:00  
 University of Queensland’s St Lucia Campus. Building 3, Room 329
 
@@ -48,7 +48,7 @@ The participants are required to bring their laptops to the workshop. Prior to t
 
 
 ## Organizers:
-The organizers – Carolina Coimbra Vieira and Ebru Şanlıtürk –are research scientists in the [Department of Digital and Computational Demography](https://www.demogr.mpg.de/en/research_6120/digital_and_computational_demography_zagheni_11666/) at the Max Planck Institute for Demographic Research (MPIDR) in Germany and they are all active in the research area of [Migration and Mobility](https://www.demogr.mpg.de/en/research_6120/digital_and_computational_demography_zagheni_11666/migration_and_mobility_11669/).
+The organizers – Carolina Coimbra Vieira and Ebru Şanlıtürk – are research scientists in the [Department of Digital and Computational Demography](https://www.demogr.mpg.de/en/research_6120/digital_and_computational_demography_zagheni_11666/) at the Max Planck Institute for Demographic Research (MPIDR) in Germany and they are all active in the research area of [Migration and Mobility](https://www.demogr.mpg.de/en/research_6120/digital_and_computational_demography_zagheni_11666/migration_and_mobility_11669/).
 
 •	**Carolina** is currently a PhD Student at the Max Planck Institute for Demographic Research. She holds her Master's degree in Computer Science from the Federal University of Minas Gerais in Brazil. She has been exploring the use of social media data to assess the bidirectional relation between migration and cultural diffusion as well as the use of new data and methods to study migration patterns.  
  
@@ -56,6 +56,8 @@ The organizers – Carolina Coimbra Vieira and Ebru Şanlıtürk –are research
 
 
 ## Previous Editions:
+
+### First edition @ [the 9th African Population Conference - APC 2024](https://conference.uaps-uepa.org/)
 Lilongwe, Malawi, 21 May 2024 from 11:00 to 13:00.  
 HR Corridor @ BICC  
 Organized by the [IUSSP Panel in Digital and Computational Demography](https://iussp.org/en/digital-and-computational-demography).
