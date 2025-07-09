@@ -1,14 +1,11 @@
 # Exploring Migration Patterns using Digital Trace Data  
 
-Lilongwe, Malawi, 21 May 2024 from 11:00 to 13:00.  
-HR Corridor @ BICC  
+## Second edition @ [IPC 2025](https://ipc2025.iussp.org/)
+July, 12th 2025 from 13:00 to 16:00  
+University of Queensland’s St Lucia Campus. Building 3, Room 329
 
 Organized by the [IUSSP Panel in Digital and Computational Demography](https://iussp.org/en/digital-and-computational-demography).
 
-This training workshop will take place at the African Population Conference in Lilongwe, Malawi, on 21 May 2024 from 11:00 to 13:00.   
-**Please register for this training workshop only if you are attending the UAPS conference.**  
-
-Register [here](https://docs.google.com/forms/d/e/1FAIpQLSd2hEX9l8FACdzBqtrggkjImEDRz_83ZFnENCpeez_q86mGnw/viewform) for "*Exploring Migration Patterns using Digital Trace Data*" 
 
 ## Trainers: 
 •    Carolina Coimbra Vieira, Max Planck Institute for Demographic Research (MPIDR)   
@@ -58,8 +55,14 @@ The organizers – Carolina Coimbra Vieira and Ebru Şanlıtürk –are research
 •	**Ebru** holds a PhD in Public Policy and Administration from Bocconi University in Italy. During her PhD, she specialized in demography and migration, completing her dissertation on the digital and computational approaches to migration studies. Her research interests are the use of digital data in migration studies and demography, big data in migration studies, and computational methods for the analysis of migration and mobility patterns.
 
 
-## Additional information:
-Link to the UAPS conference website: https://conference.uaps-uepa.org/  
-Link to the description of all the side events happening at the UAPS conference: https://conference.uaps-uepa.org/side-events/  
-Link to register for the UAPS conference: https://conference.uaps-uepa.org/register/  
+## Previous Editions:
+Lilongwe, Malawi, 21 May 2024 from 11:00 to 13:00.  
+HR Corridor @ BICC  
+Organized by the [IUSSP Panel in Digital and Computational Demography](https://iussp.org/en/digital-and-computational-demography).
+
+<!-- The first edition of this training workshop took place at the African Population Conference in Lilongwe, Malawi, on 21 May 2024 from 11:00 to 13:00.   
+**Please register for this training workshop only if you are attending the UAPS conference.**  
+Register [here](https://docs.google.com/forms/d/e/1FAIpQLSd2hEX9l8FACdzBqtrggkjImEDRz_83ZFnENCpeez_q86mGnw/viewform) for "*Exploring Migration Patterns using Digital Trace Data*" --> 
+
+<!-- Additional information: Link to the UAPS conference website: https://conference.uaps-uepa.org/ Link to the description of all the side events happening at the UAPS conference: https://conference.uaps-uepa.org/side-events/ Link to register for the UAPS conference: https://conference.uaps-uepa.org/register/  --> 
  
