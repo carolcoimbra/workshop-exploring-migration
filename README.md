@@ -1,6 +1,6 @@
 # Exploring Migration Patterns using Digital Trace Data  
 
-## Second edition @ [the 30th International Population Conference - IPC 2025](https://ipc2025.iussp.org/)
+## Second edition at the [30th International Population Conference - IPC 2025](https://ipc2025.iussp.org/)
 July, 12th 2025 from 13:00 to 16:00  
 University of Queensland’s St Lucia Campus. Building 3, Room 329
 
@@ -57,7 +57,7 @@ The organizers – Carolina Coimbra Vieira and Ebru Şanlıtürk – are researc
 
 ## Previous Editions:
 
-### First edition @ [the 9th African Population Conference - APC 2024](https://conference.uaps-uepa.org/)
+### First edition at the [9th African Population Conference - APC 2024](https://conference.uaps-uepa.org/)
 Lilongwe, Malawi, 21 May 2024 from 11:00 to 13:00.  
 HR Corridor @ BICC  
 Organized by the [IUSSP Panel in Digital and Computational Demography](https://iussp.org/en/digital-and-computational-demography).
