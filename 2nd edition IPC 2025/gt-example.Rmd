@@ -1,0 +1,149 @@
+---
+title: "ExampleCodes_GT"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R version
+
+```{r}
+getRversion()
+```
+
+
+```{r}
+if (!require("devtools")) install.packages("devtools")
+devtools::install_github("PMassicotte/gtrendsR")
+
+```
+```{r}
+library(gtrendsR)
+library(tidyverse)
+library(data.table)
+```
+
+## Disclaimer
+
+The gtrendsR package authors are Philippe Massicotte and Dirk Eddelbuettel. These codes are a compilation of my own experience using their package and the help of the open source community online using the gtrendsR package. 
+
+If and when you receive an error code check https://github.com/PMassicotte/gtrendsR/issues or online discussions.
+
+
+## Obtaining daily data
+
+Selected parameters
+
+Keyword: asylum
+Location worldwide (default)
+Time range: between 2025-01-01 and 2025-06-30 
+
+```{r}
+asylumglobal = gtrends(keyword = "asylum", time = "2025-01-01 2025-06-30",
+        gprop = "web", hl = "en", low_search_volume = FALSE)
+
+asylumglobal
+```
+
+```{r}
+immig = gtrends(keyword = "immigration", time = "2025-01-01 2025-06-30",
+        gprop = "web", hl = "en", low_search_volume = FALSE)
+```
+
+To save the results for interest over time, following can be used. 
+
+```{r}
+gtrends(keyword = "immigration", time = "2025-01-01 2025-06-30",
+        gprop = "web", hl = "en", low_search_volume = FALSE, onlyInterest = TRUE)
+
+#or
+
+gtrends(keyword = "immigration", time = "2025-01-01 2025-06-30",
+        gprop = "web", hl = "en", low_search_volume = FALSE)$interest_over_time
+```
+
+We can define up to 5 different keywords/locations. If we have more than 5 keywords or places to compare, a loop is necessary.
+
+```{r}
+data("countries")
+countries
+SelectedCountries <- c("AU", "TR", "BR", "DE", "EG", "BG", "GE", "IN", "ID", "MX",
+                 "CO", "AR")
+
+example <- data.table()
+
+for (i in 1:length(SelectedCountries)) {
+    example = rbind(example, (gtrends(keyword = "immigration", geo = SelectedCountries[i],
+                              time = "2024-01-01 2024-05-15", gprop = "web",
+                              hl = "en", low_search_volume = TRUE))$interest_over_time)
+}
+
+```
+
+
+## Time adjustment
+
+```{r}
+library(zoo)
+timesd <- c("2025-01-01 2025-06-30", "2024-07-01 2024-12-31", "2024-01-01 2024-06-30") 
+
+example2 = data.table()
+for (i in 1:length(timesd)) {
+  example2 = rbind(example2, (gtrends(keyword = "refugee", geo = "US",
+                                      time = timesd[i], gprop = "web", hl = "en",
+                                      low_search_volume = TRUE))$interest_over_time)
+  
+}
+example2 <- example2[order(example2$date)]
+
+examplew <- gtrends(keyword = "refugee", geo = "US",
+                     time = "2024-01-01 2025-06-30", gprop = "web", hl = "en",
+                     low_search_volume = TRUE)$interest_over_time
+
+# compare the daily and weekly GTI
+
+ggplot(example2, aes(x=as.character(date), y=hits, group=time, color=time)) +
+  geom_path() + guides(color=guide_legend(ncol=1)) +
+  theme(axis.text.x = element_blank(),axis.title.x = element_blank(),
+        panel.grid  = element_blank(),plot.background = element_rect(fill = "gray")) +
+  ylab("GTI") + 
+  geom_path(data = examplew, aes(x=as.character(date), y=hits, group = time), color = "black")
+
+example2 <- left_join(example2, examplew, by = c("date" = "date",
+                                      "keyword" = "keyword",
+                                      "geo" = "geo",
+                                      "gprop" = "gprop",
+                                      "category" = "category")) 
+
+example2 <- rename(example2, dailyhits = hits.x, weeklyhits = hits.y)
+example2$scalefactor = example2$weeklyhits / example2$dailyhits
+
+example2 <- example2[1:546,] # to remove the days for which there would be no adjustment factor
+example2$scalefactor <- na.locf(example2$scalefactor, fromLast = TRUE)
+
+example2$estimatedhits <- example2$dailyhits * example2$scalefactor
+rescale <- function(x){(x-min(x))/(max(x)-min(x)) * 100}
+example2 <- example2 %>% mutate(adjustedhits = rescale(estimatedhits))
+
+
+```
+
+## Keyword as topic: Brisbane vs. Brisbane (city)
+
+```{r}
+
+# as keyword
+gtrends(keyword = "Brisbane", time = "2025-01-01 2025-06-30",
+        gprop = "web", hl = "en", low_search_volume = TRUE)
+
+# as topic (uses Freebase ID) search in: https://www.wikidata.org
+gtrends(keyword = "/m/01b8jj", time = "2025-01-01 2025-06-30",
+        gprop = "web", hl = "en", low_search_volume = TRUE)
+
+
+```
+
+
+
